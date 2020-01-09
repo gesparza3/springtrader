@@ -19,12 +19,16 @@ def checkSchema() {
   def url = p.dbURLPrefix + p.dbHost + ":" + p.dbPort
   def sqlf = Sql.newInstance(url, p.dbUser, p.dbPasswd, p.dbDriver)
   def md = sqlf.connection.metaData
-  rs = md.getTables(null, 'NANOTRADER', 'ACCOUNT' , null);
-  if(rs.next()){
-    println 'Schema exists'
-    sqlf.close()
-    System.exit(0)
-    return
+
+  for (int loop = 0; loop < 120; loop++) {
+    rs = md.getTables(null, 'NANOTRADER', 'ACCOUNT' , null);
+    if(rs.next()){
+      println 'Schema exists'
+      sqlf.close()
+      System.exit(0)
+      return
+    }
+    sleep(1)
   }
 
   println 'Schema not found'

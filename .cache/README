@@ -1,0 +1,4 @@
+To create this Jenkins job, publish this configmap to your product toolchain namespace.
+`kubectl -n {NAMESPACE} apply -f configmap.yaml`
+i.e. `kubectl -n flywheel-toolchain apply -f configmap.yaml`
+

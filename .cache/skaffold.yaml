@@ -1,0 +1,16 @@
+apiVersion: skaffold/v1beta12
+kind: Config
+build:
+  artifacts:
+  - image: springtrader-builder
+    context: .
+    docker:
+      target: builder
+      noCache: true
+  - image: springtrader-runner
+    context: .
+    docker:
+      target: runner
+  tagPolicy:
+    envTemplate:
+      template: "{{ .IMAGE_NAME }}:latest"
